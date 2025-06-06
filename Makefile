@@ -1,12 +1,20 @@
 # Define o compilador e as flags
 CC = gcc
-CFLAGS = -Wall -Wextra -g -std=c99
+CFLAGS = -Wall -Wextra -g -std=c99 -Iinclude
 
 # Lista de todos os arquivos objeto (.o) necessários
 OBJETOS = main.o mips.o simulador.o instrucoes.o util.o
 
-# Nome do executável final
+# Nome do executável final (adapta extensão para Windows)
 EXECUTAVEL = simulador_mips
+ifeq ($(OS),Windows_NT)
+	EXECUTAVEL := $(EXECUTAVEL).exe
+	RM = del /Q
+	RUN = .\\$(EXECUTAVEL)
+else
+	RM = rm -f
+	RUN = ./$(EXECUTAVEL)
+endif
 
 # Regra principal: compila tudo
 all: $(EXECUTAVEL)
@@ -24,10 +32,10 @@ $(EXECUTAVEL): $(OBJETOS)
 # Regra para limpar os arquivos gerados
 clean:
 	@echo "Limpando arquivos compilados..."
-	rm -f *.o $(EXECUTAVEL)
+	$(RM) *.o $(EXECUTAVEL)
 
 # Regra para executar o programa
 run: $(EXECUTAVEL)
-	./$(EXECUTAVEL)
+	$(RUN)
 
 .PHONY: all clean run
