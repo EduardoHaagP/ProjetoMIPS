@@ -18,22 +18,22 @@ void decodificarEExecutar(unsigned int instrucaoBinaria, EstadoMips* estado, int
     switch(opcode) {
         case 0x00: // Tipo R
             switch(funct) {
-                case 0x20: executarAdd(rd, rs, rt, estado); break; // ADD
-                case 0x22: executarSub(rd, rs, rt, estado); break; // SUB
-                case 0x18: executarMult(rs, rt, estado); break;   // MULT
-                case 0x24: executarAnd(rd, rs, rt, estado); break; // AND
-                case 0x25: executarOr(rd, rs, rt, estado); break;  // OR
-                case 0x00: executarSll(rd, rt, shamt, estado); break; // SLL
-                case 0x2A: executarSlt(rd, rs, rt, estado); break; // SLT
-                case 0x0C: executarSyscall(estado); break; // SYSCALL
+                case 0x20: executarAdd(rd, rs, rt, estado); break;   // ADD
+                case 0x22: executarSub(rd, rs, rt, estado); break;   // SUB
+                case 0x18: executarMult(rs, rt, estado); break;     // MULT 
+                case 0x24: executarAnd(rd, rs, rt, estado); break;   // AND 
+                case 0x25: executarOr(rd, rs, rt, estado); break;    // OR 
+                case 0x00: executarSll(rd, rt, shamt, estado); break; // SLL 
+                case 0x2A: executarSlt(rd, rs, rt, estado); break;   // SLT
+                case 0x0C: executarSyscall(estado); break;           // SYSCALL
                 default: printf("Erro: Funct 0x%X nao reconhecido para Tipo R.\n", funct); break;
             }
             break;
-        case 0x08: executarAddi(rt, rs, imediato, estado); break; // ADDI
+        case 0x08: executarAddi(rt, rs, imediato, estado); break;     // ADDI
         case 0x23: executarLw(rt, imediato, rs, estado, memoria); break; // LW
         case 0x2B: executarSw(rt, imediato, rs, estado, memoria); break; // SW
-        case 0x0F: executarLui(rt, imediato, estado); break; // LUI
-        case 0x0A: executarSlti(rt, rs, imediato, estado); break; // SLTI
+        case 0x0F: executarLui(rt, imediato, estado); break;          // LUI 
+        case 0x0A: executarSlti(rt, rs, imediato, estado); break;     // SLTI
         default: printf("Erro: Opcode 0x%X nao reconhecido.\n", opcode); break;
     }
 }
@@ -52,17 +52,22 @@ void traduzirParaAssembly(unsigned int instrucaoBinaria, char* instrucaoAssembly
         switch (funct) {
             case 0x20: sprintf(instrucaoAssembly, "add R%u, R%u, R%u", rd, rs, rt); break;
             case 0x22: sprintf(instrucaoAssembly, "sub R%u, R%u, R%u", rd, rs, rt); break;
+            case 0x18: sprintf(instrucaoAssembly, "mult R%u, R%u", rs, rt); break; 
+            case 0x24: sprintf(instrucaoAssembly, "and R%u, R%u, R%u", rd, rs, rt); break; 
+            case 0x25: sprintf(instrucaoAssembly, "or R%u, R%u, R%u", rd, rs, rt); break;  
+            case 0x00: sprintf(instrucaoAssembly, "sll R%u, R%u, %u", rd, rt, shamt); break; 
             case 0x2A: sprintf(instrucaoAssembly, "slt R%u, R%u, R%u", rd, rs, rt); break;
             case 0x0C: sprintf(instrucaoAssembly, "syscall"); break;
-            default: sprintf(instrucaoAssembly, "Tipo R desconhecido"); break;
+            default: sprintf(instrucaoAssembly, "Tipo R desconhecido (funct: 0x%X)", funct); break;
         }
-    } else { // Tipo I
+    } else { // Tipo I e J
         switch (opcode) {
             case 0x08: sprintf(instrucaoAssembly, "addi R%u, R%u, %d", rt, rs, imediato); break;
             case 0x23: sprintf(instrucaoAssembly, "lw R%u, %d(R%u)", rt, imediato, rs); break;
             case 0x2B: sprintf(instrucaoAssembly, "sw R%u, %d(R%u)", rt, imediato, rs); break;
+            case 0x0F: sprintf(instrucaoAssembly, "lui R%u, %d", rt, imediato); break; 
             case 0x0A: sprintf(instrucaoAssembly, "slti R%u, R%u, %d", rt, rs, imediato); break;
-            default: sprintf(instrucaoAssembly, "Tipo I desconhecido"); break;
+            default: sprintf(instrucaoAssembly, "Tipo I/J desconhecido (opcode: 0x%X)", opcode); break;
         }
     }
 }
