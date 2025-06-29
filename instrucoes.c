@@ -1,3 +1,5 @@
+// Eduardo Haag Piassa da Silva 
+// Lucas Henrique Motta
 #include "instrucoes.h"
 #include <stdio.h>
 

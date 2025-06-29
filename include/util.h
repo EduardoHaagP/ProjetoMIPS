@@ -1,3 +1,5 @@
+// Eduardo Haag Piassa da Silva 
+// Lucas Henrique Motta
 #ifndef UTIL_H
 #define UTIL_H
 

@@ -1,3 +1,5 @@
+// Eduardo Haag Piassa da Silva 
+// Lucas Henrique Motta
 #include <stdio.h>
 #include "simulador.h"
 #include "instrucoes.h"

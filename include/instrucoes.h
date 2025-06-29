@@ -1,3 +1,5 @@
+// Eduardo Haag Piassa da Silva 
+// Lucas Henrique Motta
 #ifndef INSTRUCOES_H
 #define INSTRUCOES_H
 

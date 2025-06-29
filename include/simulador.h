@@ -1,3 +1,5 @@
+// Eduardo Haag Piassa da Silva 
+// Lucas Henrique Motta
 #ifndef SIMULADOR_H
 #define SIMULADOR_H
 

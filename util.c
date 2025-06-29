@@ -1,3 +1,5 @@
+// Eduardo Haag Piassa da Silva 
+// Lucas Henrique Motta
 #include "util.h"
 #include <string.h>
 #include <stdlib.h>
